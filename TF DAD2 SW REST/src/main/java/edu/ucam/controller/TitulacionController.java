@@ -96,7 +96,6 @@ public class TitulacionController {
 		}
 
 		Titulacion titulacion = ParserObject.JSONToTitulacion(jsonRecibido);
-		titulacion.setId(siguienteId());
 
 		try {
 			ts.alta(titulacion);
@@ -110,16 +109,6 @@ public class TitulacionController {
 		respuestaJSON.put("titulacion", ParserObject.TitulacionToJSON(titulacion));
 
 		return Response.status(200).entity(respuestaJSON.toString()).build();
-	}
-
-
-	private int siguienteId() {
-		int maximo = 0;
-		for(Titulacion t: ts.listar()) {
-			if(t.getId() > maximo)
-				maximo = t.getId();
-		}
-		return ++maximo;
 	}
 
 

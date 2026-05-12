@@ -21,6 +21,7 @@ public class DataBaseTitulacion {
 	}
 
 	public static boolean alta(Titulacion titulacion) {
+		titulacion.setId(siguienteId());
 		listaTitutulacion.put(titulacion.getId(), titulacion);
 		return true;
 	}
@@ -35,5 +36,14 @@ public class DataBaseTitulacion {
 			lista.add(t);
 		}
 		return lista;
+	}
+	
+	private static int siguienteId() {
+		int maximo = 0;
+		for(Titulacion t: listaTitutulacion.values()) {
+			if(t.getId() > maximo)
+				maximo = t.getId();
+		}
+		return ++maximo;
 	}
 }
