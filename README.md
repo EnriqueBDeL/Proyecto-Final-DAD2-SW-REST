@@ -24,13 +24,13 @@
 
 ## 📋 Descripción del Proyecto
 
-[cite_start]Este proyecto consiste en el desarrollo de los conceptos teóricos de aplicaciones distribuidas mediante la implementación de un servicio web REST[cite: 12]. [cite_start]El objetivo es dotar a la plataforma de las funcionalidades completas de un sistema de gestión universitaria[cite: 13].
+Este proyecto consiste en el desarrollo de los conceptos teóricos de aplicaciones distribuidas mediante la implementación de un servicio web REST. El objetivo es dotar a la plataforma de las funcionalidades completas de un sistema de gestión universitaria.
 
-[cite_start]La aplicación consta de dos partes claramente diferenciadas[cite: 15]:
-1. [cite_start]Un **servicio REST** que centraliza la lógica y la gestión del portal, desarrollado con la librería Jersey[cite: 16, 18].
-2. [cite_start]Una **página cliente (HTML o JSP)** que integra los elementos necesarios de interfaz y llamadas asíncronas mediante JavaScript para hacer uso del servicio REST[cite: 17].
+La aplicación consta de dos partes claramente diferenciadas:
+1. Un **servicio REST** que centraliza la lógica y la gestión del portal, desarrollado con la librería Jersey.
+2. Una **página cliente (HTML o JSP)** que integra los elementos necesarios de interfaz y llamadas asíncronas mediante JavaScript para hacer uso del servicio REST.
 
-[cite_start]*Nota: Para esta versión del proyecto, los datos se manejan sin el uso de una base de datos externa, valorándose la integración y el intercambio de datos en memoria con los servlets de la práctica anterior[cite: 19, 20].*
+*Nota: Para esta versión del proyecto, los datos se manejan sin el uso de una base de datos externa, valorándose la integración y el intercambio de datos en memoria con los servlets de la práctica anterior.*
 
 ---
 
@@ -43,8 +43,8 @@ Para garantizar la portabilidad y correcta ejecución, el sistema requiere la si
 | Componente | Tecnología | Función Principal / Requisito |
 | :---: | :---: | :--- |
 | **Servidor** | Apache Tomcat | Servidor de aplicaciones web sobre el que se despliega el servicio REST. |
-| **IDE** | Eclipse | Entorno de desarrollo recomendado para el proyecto. [cite_start]El proyecto exportado debe llamarse con el DNI[cite: 42]. |
-| **Librería REST** | Jersey | [cite_start]Framework de Java utilizado para la creación de los endpoints[cite: 18]. |
+| **IDE** | Eclipse | Entorno de desarrollo recomendado para el proyecto. El proyecto exportado debe llamarse con el DNI. |
+| **Librería REST** | Jersey | Framework de Java utilizado para la creación de los endpoints. |
 | **Persistencia** | Memoria / Sesión | Almacenamiento local temporal. No se requiere conexión a motores BBDD SQL externos. |
 
 ---
@@ -54,18 +54,18 @@ Para garantizar la portabilidad y correcta ejecución, el sistema requiere la si
 El sistema está dividido en distintas entregas incrementales según las convocatorias. Al encontrarse en estado de **desarrollo**, los hitos se dividen de la siguiente manera:
 
 ### 🎯 Entrega Final (Mayo)
-- [ ] [cite_start]**Titulaciones:** CRUD completo de todas las carreras de la universidad[cite: 24].
-- [ ] [cite_start]**Asignaturas:** CRUD de asignaturas[cite: 25].
-- [ ] [cite_start]**Profesores:** Funcionalidad para asignar profesores a una asignatura específica[cite: 26].
+- [ ] **Titulaciones:** CRUD completo de todas las carreras de la universidad.
+- [ ] **Asignaturas:** CRUD de asignaturas.
+- [ ] **Profesores:** Funcionalidad para asignar profesores a una asignatura específica.
 
 ### 🌞 Entrega Julio
-- [ ] [cite_start]**Seguridad y Usuarios:** CRUD de usuarios del sistema, permitido de forma exclusiva para administradores[cite: 33].
-- [ ] [cite_start]**Alumnado:** CRUD para la gestión de la base de alumnos[cite: 34].
-- [ ] [cite_start]**Matriculación:** Alta y baja (matriculación y desmatriculación) de alumnos en las diferentes asignaturas[cite: 35].
+- [ ] **Seguridad y Usuarios:** CRUD de usuarios del sistema, permitido de forma exclusiva para administradores.
+- [ ] **Alumnado:** CRUD para la gestión de la base de alumnos.
+- [ ] **Matriculación:** Alta y baja (matriculación y desmatriculación) de alumnos en las diferentes asignaturas.
 
 ### 🌟 Convocatoria Especial
-- [ ] [cite_start]**Aulas:** CRUD para la administración de espacios y aulas[cite: 38].
-- [ ] [cite_start]**Gestión de Espacios:** CRUD para gestionar la relación y asignación entre asignaturas y aulas[cite: 39].
+- [ ] **Aulas:** CRUD para la administración de espacios y aulas.
+- [ ] **Gestión de Espacios:** CRUD para gestionar la relación y asignación entre asignaturas y aulas.
 
 ---
 
@@ -74,9 +74,9 @@ El sistema está dividido en distintas entregas incrementales según las convoca
 | Tecnología | Uso en el proyecto |
 | :--- | :--- |
 | **Java EE / J2EE** | Ecosistema base para la aplicación web distribuida. |
-| **Jersey** | [cite_start]Implementación del servicio REST[cite: 18]. |
-| **HTML / JSP** | [cite_start]Maquetación y estructura de la página cliente[cite: 17]. |
-| **JavaScript** | [cite_start]Lógica de cliente para consumir los endpoints REST[cite: 17]. |
+| **Jersey** | Implementación del servicio REST. |
+| **HTML / JSP** | Maquetación y estructura de la página cliente. |
+| **JavaScript** | Lógica de cliente para consumir los endpoints REST. |
 | **Apache Tomcat** | Despliegue del contenedor web. |
 
 ---
@@ -103,6 +103,6 @@ El sistema está dividido en distintas entregas incrementales según las convoca
   </table>
 
   <br>
-  [cite_start]<i>[ Desarrollado para la asignatura Desarrollo de Aplicaciones Distribuidas II, Grado en Ingeniería Informática, UCAM [cite: 3, 5, 6] ]</i>
+  <i>[ Desarrollado para la asignatura Desarrollo de Aplicaciones Distribuidas II, Grado en Ingeniería Informática, UCAM ]</i>
   
 </div>
