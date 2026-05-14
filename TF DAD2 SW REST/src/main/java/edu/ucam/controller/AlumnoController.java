@@ -30,7 +30,6 @@ public class AlumnoController {
 
 	
 	
-	
 	@GET
 	@Path("/listado")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -55,10 +54,10 @@ public class AlumnoController {
 				return Response.status(200).entity(true).build();
 			}
 		}
-		
-		return Response.status(401).entity(false).build();
-		
+		return Response.status(401).entity(false).build();	
 	}
+	
+	
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -106,23 +105,7 @@ public class AlumnoController {
 	}
 	
 	
-	@GET
-	@Path("/datos/{idAlumno}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response datosAlumno(@PathParam("idAlumno") int id) {
-		JSONObject responseJSON = new JSONObject();
-		
-		Alumno alumno = DataBase.dameAlumnoPorId(id);
-		if(alumno != null) {
-			JSONObject alumnoJson = ParserObject.AlumnoToJSON(alumno);
-			responseJSON.put("alumno", alumnoJson);
-			return Response.status(200).entity(responseJSON.toString()).build();
-		}
-		
-		System.out.println("NO HAY ALUMNOS QUE CUMPLAN CON EL CRITERIO");
-		return Response.status(404).entity(false).build();
-	}
-	
+
 	
 	
 	@PUT

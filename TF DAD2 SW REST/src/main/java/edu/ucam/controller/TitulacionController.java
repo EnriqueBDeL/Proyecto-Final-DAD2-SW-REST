@@ -40,22 +40,6 @@ public class TitulacionController {
 	}
 
 
-	@GET
-	@Path("/datos/{idTitulacion}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response datosTitulacion(@PathParam("idTitulacion") int id) {
-		try {
-			Titulacion titulacion = ts.obtenerPorId(id);
-			JSONObject responseJSON = new JSONObject();
-			responseJSON.put("titulacion", ParserObject.TitulacionToJSON(titulacion));
-			return Response.status(200).entity(responseJSON.toString()).build();
-		} catch(ApiException e) {
-			JSONObject errorJSON = new JSONObject();
-			errorJSON.put("resultado", e.getMessage());
-			return Response.status(e.getHttpCode()).entity(errorJSON.toString()).build();
-		}
-	}
-
 
 	@DELETE
 	@Path("/{id}")

@@ -8,9 +8,6 @@ public class NotFoundException extends ApiException{
 		setHttpCode(404);
 	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 
 }

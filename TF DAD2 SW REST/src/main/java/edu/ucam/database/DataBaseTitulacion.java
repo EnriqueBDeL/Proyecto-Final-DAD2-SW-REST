@@ -10,8 +10,19 @@ import java.util.HashMap;
 
 public class DataBaseTitulacion {
 
+	
 	public static Map<Integer,Titulacion> listaTitutulacion = new HashMap<Integer,Titulacion>();
 
+	
+
+	
+	public static boolean alta(Titulacion titulacion) {
+		titulacion.setId(siguienteId());
+		listaTitutulacion.put(titulacion.getId(), titulacion);
+		return true;
+	}
+	
+	
 	public static boolean remove(int id) {
 		if(listaTitutulacion.containsKey(id)) {
 			listaTitutulacion.remove(id);
@@ -20,16 +31,11 @@ public class DataBaseTitulacion {
 		return false;
 	}
 
-	public static boolean alta(Titulacion titulacion) {
-		titulacion.setId(siguienteId());
-		listaTitutulacion.put(titulacion.getId(), titulacion);
-		return true;
-	}
-
 	public static Titulacion dameTitulacionPorId(int id) {
 		return listaTitutulacion.get(id);
 	}
 
+	
 	public static List<Titulacion> listar() {
 		List<Titulacion> lista = new ArrayList<Titulacion>();
 		for(Titulacion t: listaTitutulacion.values()) {
@@ -38,6 +44,7 @@ public class DataBaseTitulacion {
 		return lista;
 	}
 	
+	
 	public static boolean modificar(Titulacion titulacion) {
 	    if(listaTitutulacion.containsKey(titulacion.getId())) {
 	        listaTitutulacion.put(titulacion.getId(), titulacion);
@@ -45,6 +52,7 @@ public class DataBaseTitulacion {
 	    }
 	    return false;
 	}
+	
 	
 	private static int siguienteId() {
 		int maximo = 0;
