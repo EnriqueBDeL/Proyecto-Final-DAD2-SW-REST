@@ -38,6 +38,14 @@ public class DataBaseTitulacion {
 		return lista;
 	}
 	
+	public static boolean modificar(Titulacion titulacion) {
+	    if(listaTitutulacion.containsKey(titulacion.getId())) {
+	        listaTitutulacion.put(titulacion.getId(), titulacion);
+	        return true;
+	    }
+	    return false;
+	}
+	
 	private static int siguienteId() {
 		int maximo = 0;
 		for(Titulacion t: listaTitutulacion.values()) {

@@ -29,10 +29,10 @@ public class TitulacionService {
 	}
 
 	public boolean modificar(Titulacion titulacion) throws NotFoundException {
-		if(DataBaseTitulacion.dameTitulacionPorId(titulacion.getId()) == null) {
-			throw new NotFoundException("No existe la titulacion con id " + titulacion.getId() + " para modificar");
-		}
-		return DataBaseTitulacion.alta(titulacion);
+	    if(DataBaseTitulacion.dameTitulacionPorId(titulacion.getId()) == null) {
+	        throw new NotFoundException("No existe la titulacion con id " + titulacion.getId() + " para modificar");
+	    }
+	    return DataBaseTitulacion.modificar(titulacion); 
 	}
 
 	public boolean eliminar(int id) throws NotFoundException {
