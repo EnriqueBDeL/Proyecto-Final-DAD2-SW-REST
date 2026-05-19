@@ -14,8 +14,6 @@ public class DataBaseTitulacion {
 	public static Map<Integer,Titulacion> listaTitutulacion = new HashMap<Integer,Titulacion>();
 
 	
-
-	
 	public static boolean alta(Titulacion titulacion) {
 		titulacion.setId(siguienteId());
 		listaTitutulacion.put(titulacion.getId(), titulacion);
@@ -31,6 +29,7 @@ public class DataBaseTitulacion {
 		return false;
 	}
 
+	
 	public static Titulacion dameTitulacionPorId(int id) {
 		return listaTitutulacion.get(id);
 	}

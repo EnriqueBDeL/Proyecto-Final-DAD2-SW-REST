@@ -7,6 +7,7 @@ import edu.ucam.beans.*;
 
 
 public class DataBase {
+	
 	public static List<Alumno> listaAlumnos = new ArrayList<Alumno>();
 	
 	
@@ -34,7 +35,6 @@ public class DataBase {
 		
 		return resultado;
 	} 
-	
 	
 	
 	
