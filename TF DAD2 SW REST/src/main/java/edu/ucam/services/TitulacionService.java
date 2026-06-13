@@ -6,7 +6,7 @@ import edu.ucam.beans.Titulacion;
 import edu.ucam.database.DataBaseTitulacion;
 import edu.ucam.exception.ConflictException;
 import edu.ucam.exception.NotFoundException;
-
+import edu.ucam.exception.BadRequestException; 
 public class TitulacionService {
 
 	public List<Titulacion> listar() {
@@ -21,14 +21,18 @@ public class TitulacionService {
 		return titulacion;
 	}
 
-	public boolean alta(Titulacion titulacion) throws ConflictException {
+	public boolean alta(Titulacion titulacion) throws ConflictException, BadRequestException {
+		validarCampos(titulacion);
+		
 		if(DataBaseTitulacion.dameTitulacionPorId(titulacion.getId()) != null) {
 			throw new ConflictException("Ya existe una titulacion con id " + titulacion.getId());
 		}
 		return DataBaseTitulacion.alta(titulacion);
 	}
 
-	public boolean modificar(Titulacion titulacion) throws NotFoundException {
+	public boolean modificar(Titulacion titulacion) throws NotFoundException, BadRequestException {
+		validarCampos(titulacion);
+		
 	    if(DataBaseTitulacion.dameTitulacionPorId(titulacion.getId()) == null) {
 	        throw new NotFoundException("No existe la titulacion con id " + titulacion.getId() + " para modificar");
 	    }
@@ -43,4 +47,12 @@ public class TitulacionService {
 	}
 	
 	
+	private void validarCampos(Titulacion titulacion) throws BadRequestException {
+		if (titulacion.getNombre() == null || titulacion.getNombre().trim().isEmpty()) {
+			throw new BadRequestException("El nombre de la titulación no puede estar vacío.");
+		}
+		if (titulacion.getFacultad() == null || titulacion.getFacultad().trim().isEmpty()) {
+			throw new BadRequestException("La facultad no puede estar vacía.");
+		}
+	}
 }

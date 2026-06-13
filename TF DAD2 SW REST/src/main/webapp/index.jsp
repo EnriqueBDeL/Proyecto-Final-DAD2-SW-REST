@@ -12,12 +12,15 @@
 	<h3>Menu de opciones</h3>
 	<ul>
 		<li>
-			<a href="titulacion.jsp">Titulaciones</a>
+			<a href="titulacion.jsp">Control Titulaciones</a>
 		<li>
-			<a href="asignatura.jsp">Asignaturas</a>
+			<a href="asignatura.jsp">Control Asignaturas</a>
 		</li>
 		<li>
 			<a href="asignacion.jsp">Asignar Profesores</a>
+		</li>
+		<li>
+			<a href="alumno.jsp">Control Alumnos</a>
 		</li>
 	</ul>
 

@@ -1,16 +1,11 @@
 package edu.ucam.controller;
 
 import jakarta.ws.rs.GET;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONObject;
-
 import edu.ucam.utils.ParserObject;
 import edu.ucam.beans.*;
 import edu.ucam.database.DataBase;
@@ -24,40 +19,32 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-
 @Path("/alumno")
 public class AlumnoController {
 
-	
-	
 	@GET
 	@Path("/listado")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listado() {
 		JSONObject respuestaAlumnos = new JSONObject();
 		
-		for(Alumno alu : DataBase.listaAlumnos) {
+		for(Alumno alu : DataBase.listar()) {
 			respuestaAlumnos.append("alumnos", ParserObject.AlumnoToJSON(alu));
 		}
 		
-		System.out.println("EN el metodo");
 		return Response.status(200).entity(respuestaAlumnos.toString()).build();
 	}
-	
 	
 	@DELETE
 	@Path("/{id}")
 	public Response borraAlumno(@PathParam("id") int idAlumno) {
-		for(Alumno alu : DataBase.listaAlumnos) {
-			if(alu.getId() == idAlumno) {
-				DataBase.listaAlumnos.remove(alu);
-				return Response.status(200).entity(true).build();
-			}
+
+		if(DataBase.remove(idAlumno)) {
+			return Response.status(200).entity(true).build();
 		}
-		return Response.status(401).entity(false).build();	
+
+		return Response.status(404).entity(false).build();	
 	}
-	
-	
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -74,39 +61,22 @@ public class AlumnoController {
 			return Response.status(500).entity(true).build();
 		}
 		
-		
 		JSONObject jsonRecibido = new JSONObject(sb.toString());
 
 		if(jsonRecibido.has("id") ) {
-			System.out.println("NO ES UNA ALTA, es una moidifcacion");
+			System.out.println("NO ES UNA ALTA, es una modificacion");
 			return Response.status(409).entity(false).build();
 		}
 
 		Alumno alumno = ParserObject.JSONToAlumno(jsonRecibido);
-		alumno.setId(siguienteId());
-
-		DataBase.listaAlumnos.add(alumno);
+		
+		DataBase.alta(alumno);
 
 		JSONObject respuestaJSON = new JSONObject();
 		respuestaJSON.put("alumno", ParserObject.AlumnoToJSON(alumno));
 		
 		return Response.status(200).entity(respuestaJSON.toString()).build();
 	}
-	
-	private int siguienteId() {
-		int maximo=0;
-		
-		for(Alumno alu: DataBase.listaAlumnos) {
-			if(alu.getId() > maximo)
-				maximo = alu.getId();
-		}
-		
-		return ++maximo;
-	}
-	
-	
-
-	
 	
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
@@ -127,21 +97,18 @@ public class AlumnoController {
 		JSONObject jsonRecibido = new JSONObject(sb.toString());
 
 		if(!jsonRecibido.has("id")) {
-			System.out.println("NO ES UNA MODIFICACION, es una moidifcacion");
+			System.out.println("NO ES UNA MODIFICACION, es una alta");
 			return Response.status(409).entity(false).build();
 		}
 
 		Alumno alumno = ParserObject.JSONToAlumno(jsonRecibido);
 
-		DataBase.alta(alumno);
-
-		JSONObject respuestaJSON = new JSONObject();
-		respuestaJSON.put("alumno", ParserObject.AlumnoToJSON(alumno));
-		
-		return Response.status(200).entity(respuestaJSON.toString()).build();
-		
+		if (DataBase.modificar(alumno)) {
+			JSONObject respuestaJSON = new JSONObject();
+			respuestaJSON.put("alumno", ParserObject.AlumnoToJSON(alumno));
+			return Response.status(200).entity(respuestaJSON.toString()).build();
+		} else {
+			return Response.status(404).entity(false).build();
+		}
 	}
-	
-	
-	
 }

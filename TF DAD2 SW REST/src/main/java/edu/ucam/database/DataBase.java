@@ -1,50 +1,56 @@
 package edu.ucam.database;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
-import edu.ucam.beans.*;
-
+import edu.ucam.beans.Alumno;
 
 public class DataBase {
 	
-	public static List<Alumno> listaAlumnos = new ArrayList<Alumno>();
-	
-	
-	public static boolean remove(int id) {
-		boolean result = false;
-		Alumno alumno = dameAlumnoPorId(id);
-		listaAlumnos.remove(alumno);
-		return result;
-	}
-	
+	public static Map<Integer, Alumno> listaAlumnos = new Hashtable<Integer, Alumno>();
 	
 	public static boolean alta(Alumno alumno) {
-		boolean resultado = false;
-		
-		if(dameAlumnoPorId(alumno.getId()) == null) {
-			listaAlumnos.add(alumno);
-			resultado = true;
-		} else {
-			if(remove(alumno.getId())) {
-				listaAlumnos.add(alumno);
-				resultado = true;
-			}
-			
-		}
-		
-		return resultado;
+		alumno.setId(siguienteId());
+		listaAlumnos.put(alumno.getId(), alumno);
+		return true;
 	} 
 	
-	
-	
-	public static Alumno dameAlumnoPorId(int id) {
-		for(Alumno alu: listaAlumnos) {
-			if(alu.getId() == id)
-				return alu;
+	public static boolean remove(int id) {
+		if(listaAlumnos.containsKey(id)) {
+			listaAlumnos.remove(id);
+			return true;
 		}
-		
-		return null;
+		return false;
 	}
 	
+	public static Alumno dameAlumnoPorId(int id) {
+		return listaAlumnos.get(id);
+	}
+
+	public static List<Alumno> listar() {
+		List<Alumno> lista = new ArrayList<Alumno>();
+		for(Alumno a: listaAlumnos.values()) {
+			lista.add(a);
+		}
+		return lista;
+	}
+
+	public static boolean modificar(Alumno alumno) {
+	    if(listaAlumnos.containsKey(alumno.getId())) {
+	        listaAlumnos.put(alumno.getId(), alumno);
+	        return true;
+	    }
+	    return false;
+	}
+	
+	private static int siguienteId() {
+		int maximo = 0;
+		for(Alumno a: listaAlumnos.values()) {
+			if(a.getId() > maximo)
+				maximo = a.getId();
+		}
+		return ++maximo;
+	}
 }

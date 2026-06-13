@@ -34,8 +34,7 @@
 						document.getElementById(id).remove();
 					},
 					error: function (jqXhr, textStatus, errorMessage) {
-						//TODO : mejora en la vixualizaci�n de errores
-						/* Poner mensaje de error devuelto por el backend */
+					
 						alert('error');
 					}
 				});
@@ -52,6 +51,9 @@
 		$(document).ready(function () {
 
 			$("#crearTitulacion").click(function () {
+				var $btn = $(this); // Guardamos la referencia al boton
+			    $btn.prop("disabled", true); // Bloqueamos el boton
+			    
 				var titulacionInfo = { nombre: $('#nombre').val(), facultad: $('#facultad').val() };
 
 				$.ajax({
@@ -70,13 +72,20 @@
 						$('#facultad').val('');
 					},
 					error: function (jqXhr, textStatus, errorMessage) {
-						//TODO : mejora en la vixualizaci�n de errores
-						/* Poner mensaje de error devuelto por el backend */
-						alert('Error al crear');
-					}
-				});
+			            var mensaje = "Error desconocido";
+			          
+			            if(jqXhr.responseJSON && jqXhr.responseJSON.resultado) {
+			                mensaje = jqXhr.responseJSON.resultado;
+			            }
+			            alert("Error " + jqXhr.status + ": " + mensaje);
+			        },
+			        complete: function () {
+			            $btn.prop("disabled", false); 
+			        }
+			    });
 			});
 
+			
 			$("#actualizarTitulacion").click(function () {
 				var titulacionInfo = { id: parseInt($('#id').val()), nombre: $('#nombre').val(), facultad: $('#facultad').val() };
 
@@ -97,8 +106,7 @@
 						$('#facultad').val('');
 					},
 					error: function (jqXhr, textStatus, errorMessage) {
-						//TODO : mejora en la vixualizaci�n de errores
-						/* Poner mensaje de error devuelto por el backend */
+					
 						alert('Error al actualizar');
 					}
 				});
@@ -134,7 +142,7 @@
 	<button id="crearTitulacion">Crear</button>
 	<button id="actualizarTitulacion">Actualizar</button>
 
-	<br>
+	<br><br>
 	Listado de titulaciones
 	<br>
 	<ul id="titulaciones">
