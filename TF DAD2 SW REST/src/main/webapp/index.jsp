@@ -14,10 +14,10 @@
 		<li>
 			<a href="titulacion.jsp">Control Titulaciones</a>
 		<li>
-			<a href="asignatura.jsp">Control Asignaturas</a>
+			<a href="asignaturas.jsp">Control Asignaturas</a>
 		</li>
 		<li>
-			<a href="asignacion.jsp">Asignar Profesores</a>
+			<a href="asignar.jsp">Asignar Profesores</a>
 		</li>
 		<li>
 			<a href="alumno.jsp">Control Alumnos</a>

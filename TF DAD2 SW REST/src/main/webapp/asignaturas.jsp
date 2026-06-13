@@ -6,6 +6,6 @@
 </head>
 <body>
 	<h1>Asignaturas</h1>
-	<p><a href="index.jsp">&laquo; Volver atr&aacute;s</a></p>
+	<p><a href="index.jsp">Volver atras</a></p>
 </body>
 </html>
