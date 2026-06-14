@@ -12,21 +12,26 @@
 		}
 		alert("Error " + jqXhr.status + ": " + mensaje);
 	}
-
 	function limpiarFormulario() {
 		$('#id').val('');
 		$('#nombre').val('');
 		$('#curso').val('');
 		$('#cuatrimestre').val('1');
 	}
-
+	function bloquearEnlace($enlace, texto) {
+		$enlace.data('texto-original', $enlace.text());
+		$enlace.text(texto);
+		$enlace.css('pointer-events', 'none');
+	}
+	function desbloquearEnlace($enlace) {
+		$enlace.text($enlace.data('texto-original'));
+		$enlace.css('pointer-events', 'auto');
+	}
 	function load(id, nombre, curso, cuatrimestre) {
 		var existente = document.getElementById("asignatura-" + id);
 		if(existente) existente.remove();
-
 		var entry = document.createElement('li');
 		entry.id = "asignatura-" + id;
-
 		var aEditar = document.createElement('a');
 		aEditar.href = "#";
 		aEditar.appendChild(document.createTextNode(" [Editar]"));
@@ -37,11 +42,12 @@
 			$('#cuatrimestre').val(cuatrimestre);
 			return false;
 		};
-
 		var aBorrar = document.createElement('a');
 		aBorrar.href = "#";
 		aBorrar.appendChild(document.createTextNode(" [Borrar]"));
 		aBorrar.onclick = function () {
+			var $enlace = $(this);
+			bloquearEnlace($enlace, " [Borrando...]");
 			$.ajax({
 				url: 'rest/asignatura/' + id,
 				type: 'DELETE',
@@ -51,26 +57,27 @@
 				},
 				error: function (jqXhr) {
 					mensajeError(jqXhr, "Error al borrar la asignatura");
+				},
+				complete: function () {
+					desbloquearEnlace($enlace);
 				}
 			});
 			return false;
 		};
-
 		entry.appendChild(document.createTextNode("(" + id + ") " + nombre + " - " + curso + " - Cuatrimestre " + cuatrimestre));
 		entry.appendChild(aEditar);
 		entry.appendChild(aBorrar);
-
 		$('#asignaturas').append(entry);
 	}
-
 	$(document).ready(function () {
 		$("#crearAsignatura").click(function () {
+			var $btn = $(this);
+			$btn.prop("disabled", true);
 			var asignaturaInfo = {
 				nombre: $('#nombre').val(),
 				curso: $('#curso').val(),
 				cuatrimestre: parseInt($('#cuatrimestre').val())
 			};
-
 			$.ajax({
 				data: JSON.stringify(asignaturaInfo),
 				url: 'rest/asignatura',
@@ -86,18 +93,21 @@
 				},
 				error: function (jqXhr) {
 					mensajeError(jqXhr, "Error al crear la asignatura");
+				},
+				complete: function () {
+					$btn.prop("disabled", false);
 				}
 			});
 		});
-
 		$("#actualizarAsignatura").click(function () {
+			var $btn = $(this);
+			$btn.prop("disabled", true);
 			var asignaturaInfo = {
 				id: parseInt($('#id').val()),
 				nombre: $('#nombre').val(),
 				curso: $('#curso').val(),
 				cuatrimestre: parseInt($('#cuatrimestre').val())
 			};
-
 			$.ajax({
 				data: JSON.stringify(asignaturaInfo),
 				url: 'rest/asignatura',
@@ -113,12 +123,13 @@
 				},
 				error: function (jqXhr) {
 					mensajeError(jqXhr, "Error al actualizar la asignatura");
+				},
+				complete: function () {
+					$btn.prop("disabled", false);
 				}
 			});
 		});
-
 		$("#limpiar").click(limpiarFormulario);
-
 		$.ajax({
 			url: 'rest/asignatura/listado',
 			type: 'GET',
@@ -129,6 +140,9 @@
 						load(val.id, val.nombre, val.curso, val.cuatrimestre);
 					});
 				}
+			},
+			error: function (jqXhr) {
+				mensajeError(jqXhr, "No se pudo cargar la lista de asignaturas");
 			}
 		});
 	});
@@ -136,8 +150,7 @@
 </head>
 <body>
 	<h1>CRUD Asignaturas</h1>
-	<p><a href="index.jsp">Volver atras</a></p>
-
+	<p><a href="index.jsp">Volver al Menú Principal</a></p>
 	Id:<input type="text" id="id" readonly><br>
 	Nombre:<input type="text" id="nombre"><br>
 	Curso:<input type="text" id="curso" placeholder="Primero, segundo..."><br>
@@ -149,10 +162,8 @@
 	<button id="crearAsignatura">Crear</button>
 	<button id="actualizarAsignatura">Actualizar</button>
 	<button id="limpiar">Limpiar</button>
-
 	<br><br>
 	Listado de asignaturas
-	<br>
 	<ul id="asignaturas"></ul>
 </body>
 </html>
