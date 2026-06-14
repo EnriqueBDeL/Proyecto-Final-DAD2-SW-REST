@@ -138,14 +138,20 @@
 </head>
 <body>
 	<h1>CRUD Titulacion</h1>
-	<p><a href="index.jsp">Volver atras</a></p>
+	<p><a href="index.jsp">Volver al Menú Principal</a></p>
 	<br>
 	
-	Id:<input type="text" id="id" readonly><br>
-	Nombre:<input type="text" id="nombre"><br>
-	Facultad:<input type="text" id="facultad"><br>
+	Id:
+	<input type="text" id="id" readonly><br>
+	
+	Nombre:
+	<input type="text" id="nombre"><br>
+	
+	Facultad:
+	<input type="text" id="facultad"><br>
 	<button id="crearTitulacion">Crear</button>
 	<button id="actualizarTitulacion">Actualizar</button>
+	
 	<br><br>
 	Listado de titulaciones
 	<ul id="titulaciones"></ul>

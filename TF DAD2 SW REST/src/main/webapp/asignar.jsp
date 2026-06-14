@@ -142,7 +142,7 @@
 </head>
 <body>
 	<h1>Asignar Profesores a Asignaturas</h1>
-	<p><a href="index.jsp">Volver atras</a></p>
+	<p><a href="index.jsp">Volver al Menú Principal</a></p>
 
 	Asignatura:
 	<select id="idAsignatura"></select><br>

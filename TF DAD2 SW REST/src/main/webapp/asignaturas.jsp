@@ -150,7 +150,8 @@
 </head>
 <body>
 	<h1>CRUD Asignaturas</h1>
-	<p><a href="index.jsp">Volver atras</a></p>
+	<p><a href="index.jsp">Volver al Menú Principal</a></p>
+	
 	Id:<input type="text" id="id" readonly><br>
 	Nombre:<input type="text" id="nombre"><br>
 	Curso:<input type="text" id="curso" placeholder="Primero, segundo..."><br>
