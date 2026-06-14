@@ -2,33 +2,14 @@ package edu.ucam.utils;
 
 import org.json.JSONObject;
 
-import edu.ucam.beans.Alumno;
+import edu.ucam.beans.Asignacion;
 import edu.ucam.beans.Asignatura;
 import edu.ucam.beans.Profesor;
 import edu.ucam.beans.Titulacion;
+import edu.ucam.database.DataBaseAsignacion;
 
 public class ParserObject {
 
-	public static Alumno JSONToAlumno(JSONObject alumnoJson) {
-		Alumno alumno = new Alumno();
-		
-		if(alumnoJson.has("id"))
-			alumno.setId(alumnoJson.getInt("id"));
-		alumno.setNombre(alumnoJson.getString("nombre"));
-		alumno.setApellido1(alumnoJson.getString("apellido1"));
-			
-		return alumno;
-	}
-	
-	public static JSONObject AlumnoToJSON(Alumno alu) {
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("id", alu.getId());
-		jsonObject.put("nombre", alu.getNombre());
-		jsonObject.put("apellido1", alu.getApellido1());
-	
-		return jsonObject;
-	}
-	
 	public static Titulacion JSONToTitulacion(JSONObject titulacionJson) {
 		Titulacion titulacion = new Titulacion();
 
@@ -68,6 +49,24 @@ public class ParserObject {
 		jsonObject.put("nombre", asig.getNombre());
 		jsonObject.put("curso", asig.getCurso());
 		jsonObject.put("cuatrimestre", asig.getCuatrimestre());
+		Integer idProfesor = DataBaseAsignacion.dameProfesorAsignado(asig.getId());
+		if(idProfesor != null) {
+			jsonObject.put("idProfesor", idProfesor);
+		}
+		return jsonObject;
+	}
+
+	public static Asignacion JSONToAsignacion(JSONObject asignacionJson) {
+		Asignacion asignacion = new Asignacion();
+		asignacion.setIdAsignatura(asignacionJson.getInt("idAsignatura"));
+		asignacion.setIdProfesor(asignacionJson.getInt("idProfesor"));
+		return asignacion;
+	}
+
+	public static JSONObject AsignacionToJSON(Asignacion asignacion) {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("idAsignatura", asignacion.getIdAsignatura());
+		jsonObject.put("idProfesor", asignacion.getIdProfesor());
 		return jsonObject;
 	}
 
@@ -91,5 +90,5 @@ public class ParserObject {
 		jsonObject.put("departamento", prof.getDepartamento());
 		return jsonObject;
 	}
-	
+
 }

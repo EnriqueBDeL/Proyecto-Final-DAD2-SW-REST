@@ -98,3 +98,5 @@ public class AsignacionController {
 		JSONObject errorJSON = new JSONObject();
 		errorJSON.put("resultado", e.getMessage());
 		return Response.status(e.getHttpCode()).entity(errorJSON.toString()).build();
+	}
+}

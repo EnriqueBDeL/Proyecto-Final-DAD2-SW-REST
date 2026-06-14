@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CRUD Titulacion</title>
+<title>CRUD Profesores</title>
 <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 	function mensajeError(jqXhr, texto) {
@@ -15,7 +15,8 @@
 	function limpiarFormulario() {
 		$('#id').val('');
 		$('#nombre').val('');
-		$('#facultad').val('');
+		$('#apellidos').val('');
+		$('#departamento').val('');
 	}
 	function bloquearEnlace($enlace, texto) {
 		$enlace.data('texto-original', $enlace.text());
@@ -26,18 +27,19 @@
 		$enlace.text($enlace.data('texto-original'));
 		$enlace.css('pointer-events', 'auto');
 	}
-	function load(id, nombre, facultad) {
-		var existente = document.getElementById("titulacion-" + id);
+	function load(id, nombre, apellidos, departamento) {
+		var existente = document.getElementById("profesor-" + id);
 		if(existente) existente.remove();
 		var entry = document.createElement('li');
-		entry.id = "titulacion-" + id;
+		entry.id = "profesor-" + id;
 		var aEditar = document.createElement('a');
 		aEditar.href = "#";
 		aEditar.appendChild(document.createTextNode(" [Editar]"));
 		aEditar.onclick = function () {
 			$('#id').val(id);
 			$('#nombre').val(nombre);
-			$('#facultad').val(facultad);
+			$('#apellidos').val(apellidos);
+			$('#departamento').val(departamento);
 			return false;
 		};
 		var aBorrar = document.createElement('a');
@@ -47,14 +49,14 @@
 			var $enlace = $(this);
 			bloquearEnlace($enlace, " [Borrando...]");
 			$.ajax({
-				url: 'rest/titulacion/' + id,
+				url: 'rest/profesor/' + id,
 				type: 'DELETE',
 				dataType: "json",
 				success: function () {
-					document.getElementById("titulacion-" + id).remove();
+					document.getElementById("profesor-" + id).remove();
 				},
 				error: function (jqXhr) {
-					mensajeError(jqXhr, "Error al borrar la titulacion");
+					mensajeError(jqXhr, "Error al borrar el profesor");
 				},
 				complete: function () {
 					desbloquearEnlace($enlace);
@@ -62,19 +64,23 @@
 			});
 			return false;
 		};
-		entry.appendChild(document.createTextNode("(" + id + ") " + nombre + " - " + facultad));
+		entry.appendChild(document.createTextNode("(" + id + ") " + nombre + " " + apellidos + " - " + departamento));
 		entry.appendChild(aEditar);
 		entry.appendChild(aBorrar);
-		$('#titulaciones').append(entry);
+		$('#profesores').append(entry);
 	}
 	$(document).ready(function () {
-		$("#crearTitulacion").click(function () {
+		$("#crearProfesor").click(function () {
 			var $btn = $(this);
 			$btn.prop("disabled", true);
-			var titulacionInfo = { nombre: $('#nombre').val(), facultad: $('#facultad').val() };
+			var profesorInfo = {
+				nombre: $('#nombre').val(),
+				apellidos: $('#apellidos').val(),
+				departamento: $('#departamento').val()
+			};
 			$.ajax({
-				data: JSON.stringify(titulacionInfo),
-				url: 'rest/titulacion',
+				data: JSON.stringify(profesorInfo),
+				url: 'rest/profesor',
 				headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
@@ -82,24 +88,29 @@
 				type: 'POST',
 				dataType: "json",
 				success: function (result) {
-					load(result.titulacion.id, result.titulacion.nombre, result.titulacion.facultad);
+					load(result.profesor.id, result.profesor.nombre, result.profesor.apellidos, result.profesor.departamento);
 					limpiarFormulario();
 				},
 				error: function (jqXhr) {
-					mensajeError(jqXhr, "Error al crear la titulacion");
+					mensajeError(jqXhr, "Error al crear el profesor");
 				},
 				complete: function () {
 					$btn.prop("disabled", false);
 				}
 			});
 		});
-		$("#actualizarTitulacion").click(function () {
+		$("#actualizarProfesor").click(function () {
 			var $btn = $(this);
 			$btn.prop("disabled", true);
-			var titulacionInfo = { id: parseInt($('#id').val()), nombre: $('#nombre').val(), facultad: $('#facultad').val() };
+			var profesorInfo = {
+				id: parseInt($('#id').val()),
+				nombre: $('#nombre').val(),
+				apellidos: $('#apellidos').val(),
+				departamento: $('#departamento').val()
+			};
 			$.ajax({
-				data: JSON.stringify(titulacionInfo),
-				url: 'rest/titulacion',
+				data: JSON.stringify(profesorInfo),
+				url: 'rest/profesor',
 				headers: {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
@@ -107,46 +118,48 @@
 				type: 'PUT',
 				dataType: "json",
 				success: function (result) {
-					load(result.titulacion.id, result.titulacion.nombre, result.titulacion.facultad);
+					load(result.profesor.id, result.profesor.nombre, result.profesor.apellidos, result.profesor.departamento);
 					limpiarFormulario();
 				},
 				error: function (jqXhr) {
-					mensajeError(jqXhr, "Error al actualizar la titulacion");
+					mensajeError(jqXhr, "Error al actualizar el profesor");
 				},
 				complete: function () {
 					$btn.prop("disabled", false);
 				}
 			});
 		});
+		$("#limpiar").click(limpiarFormulario);
 		$.ajax({
-			url: 'rest/titulacion/listado',
+			url: 'rest/profesor/listado',
 			type: 'GET',
 			dataType: "json",
 			success: function (result) {
-				if(result.titulaciones) {
-					jQuery.each(result.titulaciones, function (i, val) {
-						load(val.id, val.nombre, val.facultad);
+				if(result.profesores) {
+					jQuery.each(result.profesores, function (i, val) {
+						load(val.id, val.nombre, val.apellidos, val.departamento);
 					});
 				}
 			},
 			error: function (jqXhr) {
-				mensajeError(jqXhr, "No se pudo cargar la lista de titulaciones");
+				mensajeError(jqXhr, "No se pudo cargar la lista de profesores");
 			}
 		});
 	});
 </script>
 </head>
 <body>
-	<h1>CRUD Titulacion</h1>
+	<h1>CRUD Profesores</h1>
 	<p><a href="index.jsp">Volver atras</a></p>
-	Formulario para gestionar titulaciones.<br>
 	Id:<input type="text" id="id" readonly><br>
 	Nombre:<input type="text" id="nombre"><br>
-	Facultad:<input type="text" id="facultad"><br>
-	<button id="crearTitulacion">Crear</button>
-	<button id="actualizarTitulacion">Actualizar</button>
+	Apellidos:<input type="text" id="apellidos"><br>
+	Departamento:<input type="text" id="departamento"><br>
+	<button id="crearProfesor">Crear</button>
+	<button id="actualizarProfesor">Actualizar</button>
+	<button id="limpiar">Limpiar</button>
 	<br><br>
-	Listado de titulaciones
-	<ul id="titulaciones"></ul>
+	Listado de profesores
+	<ul id="profesores"></ul>
 </body>
 </html>
