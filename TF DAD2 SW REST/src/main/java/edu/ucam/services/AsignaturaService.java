@@ -3,6 +3,7 @@ package edu.ucam.services;
 import java.util.List;
 import edu.ucam.beans.Asignatura;
 import edu.ucam.database.DataBaseAsignatura;
+import edu.ucam.database.DataBaseAsignacion;
 import edu.ucam.exception.BadRequestException;
 import edu.ucam.exception.ConflictException;
 import edu.ucam.exception.NotFoundException;
@@ -45,10 +46,18 @@ public class AsignaturaService {
 	    return DataBaseAsignatura.modificar(asignatura); 
 	}
 
-	public boolean eliminar(int id) throws NotFoundException {
+	
+	
+	public boolean eliminar(int id) throws NotFoundException, ConflictException {
+		
 		if(DataBaseAsignatura.dameAsignaturaPorId(id) == null) {
 			throw new NotFoundException("No existe la asignatura con id " + id + " para eliminar");
 		}
+		
+		if(DataBaseAsignacion.dameProfesorAsignado(id) != null) {
+			throw new ConflictException("No se puede borrar la asignatura porque tiene un profesor asignado. Por favor, desasígnalo primero.");
+		}
+		
 		return DataBaseAsignatura.remove(id);
 	}
 	
