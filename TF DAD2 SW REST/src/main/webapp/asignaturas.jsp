@@ -152,7 +152,6 @@
 	<h1>CRUD Asignaturas</h1>
 	<p><a href="index.jsp">Volver al Menú Principal</a></p>
 	
-<<<<<<< HEAD
 	Id:
 	<input type="text" id="id" readonly><br>
 	
@@ -162,11 +161,6 @@
 	Curso:
 	<input type="text" id="curso" placeholder="Primero, segundo..."><br>
 	
-=======
-	Id:<input type="text" id="id" readonly><br>
-	Nombre:<input type="text" id="nombre"><br>
-	Curso:<input type="text" id="curso" placeholder="Primero, segundo..."><br>
->>>>>>> origin/main
 	Cuatrimestre:
 	<select id="cuatrimestre">
 		<option value="1">1</option>
