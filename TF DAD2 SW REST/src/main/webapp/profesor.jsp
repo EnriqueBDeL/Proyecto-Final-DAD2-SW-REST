@@ -150,14 +150,23 @@
 </head>
 <body>
 	<h1>CRUD Profesores</h1>
-	<p><a href="index.jsp">Volver atras</a></p>
-	Id:<input type="text" id="id" readonly><br>
-	Nombre:<input type="text" id="nombre"><br>
-	Apellidos:<input type="text" id="apellidos"><br>
-	Departamento:<input type="text" id="departamento"><br>
+	<p><a href="index.jsp">Volver al Menú Principal</a></p>
+	
+	Id:
+	<input type="text" id="id" readonly><br>
+	
+	Nombre:
+	<input type="text" id="nombre"><br>
+	
+	Apellidos:
+	<input type="text" id="apellidos"><br>
+	
+	Departamento:
+	<input type="text" id="departamento"><br>
 	<button id="crearProfesor">Crear</button>
 	<button id="actualizarProfesor">Actualizar</button>
 	<button id="limpiar">Limpiar</button>
+	
 	<br><br>
 	Listado de profesores
 	<ul id="profesores"></ul>

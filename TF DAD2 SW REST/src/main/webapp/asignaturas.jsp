@@ -150,10 +150,17 @@
 </head>
 <body>
 	<h1>CRUD Asignaturas</h1>
-	<p><a href="index.jsp">Volver atras</a></p>
-	Id:<input type="text" id="id" readonly><br>
-	Nombre:<input type="text" id="nombre"><br>
-	Curso:<input type="text" id="curso" placeholder="Primero, segundo..."><br>
+	<p><a href="index.jsp">Volver al Menú Principal</a></p>
+	
+	Id:
+	<input type="text" id="id" readonly><br>
+	
+	Nombre:
+	<input type="text" id="nombre"><br>
+	
+	Curso:
+	<input type="text" id="curso" placeholder="Primero, segundo..."><br>
+	
 	Cuatrimestre:
 	<select id="cuatrimestre">
 		<option value="1">1</option>
@@ -162,6 +169,7 @@
 	<button id="crearAsignatura">Crear</button>
 	<button id="actualizarAsignatura">Actualizar</button>
 	<button id="limpiar">Limpiar</button>
+	
 	<br><br>
 	Listado de asignaturas
 	<ul id="asignaturas"></ul>
