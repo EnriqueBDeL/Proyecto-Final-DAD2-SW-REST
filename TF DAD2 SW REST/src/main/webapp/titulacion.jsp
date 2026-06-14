@@ -139,7 +139,8 @@
 <body>
 	<h1>CRUD Titulacion</h1>
 	<p><a href="index.jsp">Volver atras</a></p>
-	Formulario para gestionar titulaciones.<br>
+	<br>
+	
 	Id:<input type="text" id="id" readonly><br>
 	Nombre:<input type="text" id="nombre"><br>
 	Facultad:<input type="text" id="facultad"><br>

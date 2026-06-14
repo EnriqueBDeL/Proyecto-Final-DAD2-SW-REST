@@ -146,6 +146,7 @@
 
 	Asignatura:
 	<select id="idAsignatura"></select><br>
+	
 	Profesor:
 	<select id="idProfesor"></select><br>
 	<button id="asignarProfesor">Asignar / Reasignar</button>
